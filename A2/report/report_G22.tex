@@ -1,6 +1,6 @@
-% 力學 Project A2 實驗報告 — Group 22
+% 力學 Project Part 2 實驗報告 — Group 22
 % 編譯：xelatex report_G22.tex（需 xeCJK 與 Noto Serif/Sans CJK TC 字型；Overleaf 請選 XeLaTeX）
-% 圖檔來源：../figures/（由 A2/run_all.py 產生）
+% 圖檔來源：../figures/（由 run_all.py 產生）
 \documentclass[11pt,a4paper]{article}
 
 \usepackage{xeCJK}
@@ -16,6 +16,7 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=black}
 
 \graphicspath{{../figures/}{figures/}}
 \linespread{1.25}
@@ -27,7 +28,7 @@
 
 \newcommand{\dt}{\Delta t}
 
-\title{力學 Project A2：單擺問題中\\velocity Verlet 與 RK4 的數值實驗}
+\title{力學 Project Part 2：單擺問題中\\velocity Verlet 與 RK4 的數值實驗}
 \author{Group 22}
 \date{2026 年 10 月}
 
@@ -36,14 +37,16 @@
 
 \section{研究目的與方法概要}
 
-本報告執行 A1 中設計的四個數值實驗，比較 \textbf{velocity Verlet（以下簡稱 VV）}
+本報告執行 Part 1 中設計的四個數值實驗，比較 \textbf{velocity Verlet（以下簡稱 VV）}
 與\textbf{四階 Runge--Kutta 法（RK4）}在單擺問題上的表現。實驗涵蓋兩組對照：
 小角度近似與完整非線性方程、無阻尼與正比於角速度一次方的阻尼。
 
 所有計算使用課程提供的數值工具包 \texttt{mechanics\_integrators.py}（未作任何修改），
-程式與原始數據見 \texttt{A2/} 資料夾，執行 \texttt{python run\_all.py} 即可重現本報告所有圖表。
+所有程式、原始數據與本報告原始檔公開於 GitHub：
+\url{https://github.com/glen0414/dynamics_project1}。
+執行 \texttt{python run\_all.py} 即可重現本報告所有圖表與數值。
 
-為了區分\textbf{物理現象}與\textbf{數值誤差}（A1 第 4 節），每個實驗都以 $\dt$ 與 $\dt/2$ 各跑一次：
+為了區分\textbf{物理現象}與\textbf{數值誤差}（Part 1 第 4 節），每個實驗都以 $\dt$ 與 $\dt/2$ 各跑一次：
 \begin{itemize}
   \item 結果幾乎不隨 $\dt$ 改變 $\Rightarrow$ 屬於物理現象；
   \item 結果隨 $\dt$ 縮小，且縮小倍率約為 $2^p$（$p$ 為方法的收斂階數）$\Rightarrow$ 屬於數值誤差。
@@ -120,7 +123,7 @@ $60^\circ$ & 非線性 & 2.153973 & $3\times10^{-8}$ & 2.153973 & 1.0732 \\
 \textbf{結果與討論：}$5^\circ$ 時非線性週期只比 $T_0$ 長 $0.05\%$，兩條曲線肉眼無法區分；
 $60^\circ$ 時週期變長 $7.3\%$，十個週期後兩者已幾乎反相（圖~\ref{fig:exp1}）。
 $\dt$ 減半造成的週期變化只有 $10^{-8}~\mathrm{s}$ 量級，比 $60^\circ$ 的物理差異（$0.147~\mathrm{s}$）小了七個數量級，
-且 RK4 結果與精確橢圓積分週期完全一致到小數點後六位。因此圖中的相位差\textbf{確實是物理現象}，與 A1 預測相符。
+且 RK4 結果與精確橢圓積分週期完全一致到小數點後六位。因此圖中的相位差\textbf{確實是物理現象}，與 Part 1 預測相符。
 
 % ------------------------------------------------------------------
 \section{實驗二：無耗散系統中的數值能量誤差}
@@ -155,20 +158,20 @@ VV  & 0.005 & $4.59\times10^{-5}$ & （有界震盪，無漂移） & $-1.22\time
 
 \textbf{結果與討論：}
 \begin{enumerate}
-  \item \textbf{定性行為符合 A1 預測。}VV 的能量誤差在一個固定寬度內來回震盪，長時間不會累積，
+  \item \textbf{定性行為符合 Part 1 預測。}VV 的能量誤差在一個固定寬度內來回震盪，長時間不會累積，
         這是 symplectic 方法的特徵；RK4 的能量則\textbf{單調減少}，且隨時間線性累積，屬於數值耗散。
-  \item \textbf{定量上與 A1 預測相反。}在 $\dt=0.01~\mathrm{s}$ 下，RK4 跑完 $2000~\mathrm{s}$ 的能量誤差
+  \item \textbf{定量上與 Part 1 預測相反。}在 $\dt=0.01~\mathrm{s}$ 下，RK4 跑完 $2000~\mathrm{s}$ 的能量誤差
         （$1.3\times10^{-6}$）仍比 VV 的震盪幅度（$1.8\times10^{-4}$）\textbf{小約 140 倍}。
         以漂移率外推，RK4 要約 $2.7\times10^{5}~\mathrm{s}$（約 $10^5$ 個週期）才會追上 VV 的誤差帶。
         因此在一般模擬時間內，RK4 的能量反而比 VV 更準；VV 的優勢只有在極長時間或大步長下才顯現。
-  \item \textbf{RK4 的能量流失率隨 $\dt^5$ 縮小，而非 A1 假設的 $\dt^4$。}
+  \item \textbf{RK4 的能量流失率隨 $\dt^5$ 縮小，而非 Part 1 假設的 $\dt^4$。}
         實測 $\dt$ 減半時縮小 $32$ 倍。原因可由簡諧振子分析：RK4 每一步的放大因子滿足
         $|R(i z)|^2 = 1 - z^6/72 + z^8/576$（$z=\omega\dt$），
         即每步能量損失 $\propto \dt^6$，單位時間內步數 $\propto 1/\dt$，故流失率 $\propto \dt^5$。
-        A1 中「$1/16$」的預估應修正為 $1/32$。VV 的能量誤差帶與週期誤差都恰好縮小 $4$ 倍，符合二階方法。
+        Part 1 中「$1/16$」的預估應修正為 $1/32$。VV 的能量誤差帶與週期誤差都恰好縮小 $4$ 倍，符合二階方法。
 \end{enumerate}
 
-為了讓 A1 預測的「相空間內縮」能被看見，另以刻意偏大的 $\dt=0.1~\mathrm{s}$ 重跑（圖~\ref{fig:exp2coarse}）：
+為了讓 Part 1 預測的「相空間內縮」能被看見，另以刻意偏大的 $\dt=0.1~\mathrm{s}$ 重跑（圖~\ref{fig:exp2coarse}）：
 $2000~\mathrm{s}$ 後 RK4 損失 $12.3\%$ 的能量，相空間軌跡明顯向內螺旋；
 VV 誤差雖大（最大 $1.9\%$），但仍維持在固定帶內，軌跡閉合、不內縮。
 
@@ -188,10 +191,13 @@ VV 誤差雖大（最大 $1.9\%$），但仍維持在固定帶內，軌跡閉合
 \subsection{發現：工具包的 velocity Verlet 無法直接處理阻尼}
 
 工具包的 \texttt{velocity\_verlet(acceleration, t, x0, v0)} 只接受 \texttt{acceleration(t, x)}，
-加速度不能依賴速度（工具包 README 第 10 節）。實際把含阻尼的 \texttt{a(t, theta, omega)} 傳入時，程式直接報錯：
+加速度不能依賴速度（工具包 README 第 10 節）。為了驗證這一點，我們刻意把含阻尼的 \texttt{a(t, theta, omega)} 傳入工具包的 VV。
+工具包內部只以 \texttt{acceleration(t, x)} 兩個參數呼叫它，因此 Python 回報缺少 \texttt{omega} 參數。
+以下錯誤訊息是\textbf{預期中的結果}，正是本節要展示的限制，並非程式錯誤：
 {\footnotesize
 \begin{verbatim}
-TypeError: accel_rk4.<locals>.a() missing 1 required positional argument: 'omega'
+>>> velocity_verlet(a_damped, t, theta0, 0.0)   # a_damped(t, theta, omega)
+TypeError: a() missing 1 required positional argument: 'omega'
 \end{verbatim}
 }
 這反映了一個本質問題：標準 VV 是為「只依賴位置的保守力」設計的。速度更新
@@ -246,14 +252,14 @@ VV（延遲）  & $1.1\times10^{-3}$ & $2.1$  & $1.07$ \\
 
 \textbf{討論：}
 \begin{enumerate}
-  \item \textbf{延遲版 VV 只剩一階精度}（$p=1.07$），誤差最大。這正是 A1 預測的「處理速度變數的延遲」造成的殘差：
+  \item \textbf{延遲版 VV 只剩一階精度}（$p=1.07$），誤差最大。這正是 Part 1 預測的「處理速度變數的延遲」造成的殘差：
         每步在速度更新中引入 $O(\dt^2)$ 的誤差，累積後成為 $O(\dt)$。
   \item \textbf{隱式版 VV 恢復二階精度}（$p=2.00$），誤差比延遲版小約 20 倍。可見同樣叫「velocity Verlet」，
         處理速度相依力的方式會直接決定精度。
   \item \textbf{RK4 為四階}（$p=4.00$），誤差比隱式 VV 再小約 5000 倍，且不需修改演算法。
 \end{enumerate}
 三種方法的誤差都隨 $\dt$ 依各自階數縮小，因此全部屬於數值誤差；解析解與數值解的整體衰減行為一致。
-此實驗符合 A1 預測，並補充了「工具包的 VV 介面不適用速度相依力」這項發現。
+此實驗符合 Part 1 預測，並補充了「工具包的 VV 介面不適用速度相依力」這項發現。
 
 % ------------------------------------------------------------------
 \section{實驗四：有阻尼時小角度近似與非線性方程的比較}
@@ -272,8 +278,8 @@ VV（延遲）  & $1.1\times10^{-3}$ & $2.1$  & $1.07$ \\
 \begin{enumerate}
   \item \textbf{頻率收斂：}非線性單擺第一個週期為 $2.222~\mathrm{s}$（比 $T_d$ 長 $10.6\%$），
         隨振幅衰減依序為 $2.110$、$2.061$、$2.037$、$2.024~\mathrm{s}\ldots$，最後收斂到 $2.0095~\mathrm{s}\approx T_d$。
-        小角度模型則從頭到尾維持 $T_d$。這與 A1 的預測一致：阻尼消耗能量使振幅變小，非線性效應隨之消失。
-  \item \textbf{相位不會同步：}A1 預測兩者「最終同步停下」，但模擬顯示前期大振幅時累積的時間落後
+        小角度模型則從頭到尾維持 $T_d$。這與 Part 1 的預測一致：阻尼消耗能量使振幅變小，非線性效應隨之消失。
+  \item \textbf{相位不會同步：}Part 1 預測兩者「最終同步停下」，但模擬顯示前期大振幅時累積的時間落後
         （最後一個共同擺動約 $0.82~\mathrm{s}$，相當於 $147^\circ$ 相位）\textbf{不會消失}。
         頻率相同後，相位差只會保持固定，不會被追回。兩條曲線最終都衰減到零，但並不重合。
   \item \textbf{此差異為物理現象：}$\dt$ 減半時兩模型的 $\theta(t)$ 最大變化僅約 $10^{-7}~\mathrm{rad}$，
@@ -283,15 +289,15 @@ VV（延遲）  & $1.1\times10^{-3}$ & $2.1$  & $1.07$ \\
 % ------------------------------------------------------------------
 \section{綜合討論}
 
-\subsection{與 A1 預測的比較}
+\subsection{與 Part 1 預測的比較}
 
 \begin{table}[H]
 \centering
 \small
-\caption{A1 預測與 A2 實測結果比較（$\dt=0.01~\mathrm{s}$）。}
+\caption{Part 1 預測與 Part 2 實測結果比較（$\dt=0.01~\mathrm{s}$）。}
 \begin{tabular}{p{0.06\textwidth}p{0.28\textwidth}p{0.42\textwidth}p{0.12\textwidth}}
 \toprule
-實驗 & A1 預測 & A2 實測 & 判定 \\
+實驗 & Part 1 預測 & Part 2 實測 & 判定 \\
 \midrule
 一 & $60^\circ$ 非線性週期明顯變長 & $T/T_0=1.073$；與精確週期一致；與 $\dt$ 無關 & 符合 \\
 二 & RK4 能量流失、相空間內縮；VV 守恆 & 行為正確，但 RK4 能量誤差反而小約 140 倍；內縮需粗步長才可見 & 定性符合 \\
@@ -329,9 +335,9 @@ VV（延遲）  & $1.1\times10^{-3}$ & $2.1$  & $1.07$ \\
 \section{生成式 AI 使用說明}
 
 本次作業中，生成式 AI（Claude）參與了以下工作：
-閱讀課程工具包並說明其介面限制；依照本組 A1 的實驗設計撰寫 Python 實驗程式
+閱讀課程工具包並說明其介面限制；依照本組 Part 1 的實驗設計撰寫 Python 實驗程式
 （包含兩種修改版 velocity Verlet、精確週期與解析解的參考計算、週期量測與收斂分析）；
 產生圖表與數值摘要；以及協助整理本報告的初稿。
-實驗設計、參數選擇的確認與結果詮釋由組員檢查與討論。所有數值皆可由 \texttt{A2/run\_all.py} 重現。
+實驗設計、參數選擇的確認與結果詮釋由組員檢查與討論。所有數值皆可由 GitHub 儲存庫（\url{https://github.com/glen0414/dynamics_project1}）中的 \texttt{run\_all.py} 重現。
 
 \end{document}
