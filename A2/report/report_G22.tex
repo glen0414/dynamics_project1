@@ -66,14 +66,14 @@
 \begin{table}[H]
 \centering
 \caption{共用參數。初始角速度一律為 $0$。}
-\begin{tabular}{lll}
+\begin{tabular}{lp{0.3\textwidth}p{0.45\textwidth}}
 \toprule
 參數 & 數值 & 說明 \\
 \midrule
 $g$, $L$ & $9.8~\mathrm{m/s^2}$, $1~\mathrm{m}$ & $\omega_0=\sqrt{g/L}$，$T_0=2\pi/\omega_0=2.00709~\mathrm{s}$ \\
 $\gamma$ & $0.3~\mathrm{s^{-1}}$ & 阻尼率（實驗三、四）；欠阻尼，衰減時間 $2/\gamma\approx 6.7~\mathrm{s}$ \\
 $\dt$ & $0.01~\mathrm{s}$ 與 $0.005~\mathrm{s}$ & 每個實驗都跑兩種步長 \\
-$\theta_0$ & 實驗一 $5^\circ$、$60^\circ$；實驗二、四 $120^\circ$；實驗三 $10^\circ$ & \\
+$\theta_0$ & $5^\circ$、$60^\circ$（實驗一）；$120^\circ$（實驗二、四）；$10^\circ$（實驗三） & 初始釋放角度 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -189,7 +189,7 @@ VV 誤差雖大（最大 $1.9\%$），但仍維持在固定帶內，軌跡閉合
 
 工具包的 \texttt{velocity\_verlet(acceleration, t, x0, v0)} 只接受 \texttt{acceleration(t, x)}，
 加速度不能依賴速度（工具包 README 第 10 節）。實際把含阻尼的 \texttt{a(t, theta, omega)} 傳入時，程式直接報錯：
-{\small
+{\footnotesize
 \begin{verbatim}
 TypeError: accel_rk4.<locals>.a() missing 1 required positional argument: 'omega'
 \end{verbatim}
@@ -224,7 +224,8 @@ RK4 則以 \texttt{a(t, x, v)} 的一般形式自然處理阻尼，直接使用�
 \end{minipage}\hfill
 \begin{minipage}{0.45\textwidth}
 \centering
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lccc}
 \toprule
 方法 & 最大誤差 & 減半倍率 & 階數 $p$ \\
