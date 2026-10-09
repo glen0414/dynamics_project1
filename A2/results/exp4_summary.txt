@@ -1,0 +1,16 @@
+Experiment 4 - damped pendulum, small-angle vs nonlinear (RK4)
+==============================================================
+theta0 = 120 deg, gamma = 0.3 1/s, damped small-angle period Td = 2.009398 s
+
+   linear: max |theta(dt) - theta(dt/2)| = 1.21e-07 rad
+           successive periods [s]: 2.0094, 2.0094, 2.0094, 2.0094, 2.0094, 2.0094 ... 2.0094, 2.0094, 2.0094
+nonlinear: max |theta(dt) - theta(dt/2)| = 8.35e-08 rad
+           successive periods [s]: 2.2217, 2.1104, 2.0612, 2.0368, 2.0241, 2.0174 ... 2.0098, 2.0096, 2.0095
+
+Time lag of nonlinear behind linear at the last common swing: 0.823 s (147 deg of phase)
+
+Reading:
+- Nonlinear period starts longer than Td and converges to Td as the amplitude decays
+  (the frequencies synchronise) - this is physics: unchanged when dt is halved.
+- The phase lag built up during the large-amplitude swings does NOT disappear,
+  so the two curves keep a constant offset rather than coinciding exactly.

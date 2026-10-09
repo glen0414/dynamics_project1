@@ -1,0 +1,26 @@
+Experiment 3 - damped small-angle pendulum vs analytic solution
+===============================================================
+theta0 = 10 deg, gamma = 0.3 1/s, t_end = 30 s
+
+Finding (toolkit limit): passing a(t, theta, omega) with damping to the toolkit's
+velocity_verlet, which calls acceleration(t, x), gives:
+  TypeError: accel_rk4.<locals>.a() missing 1 required positional argument: 'omega'
+The standard VV interface cannot represent -gamma*omega, so VV must be modified.
+Two modifications are compared (see common.py): lagged and implicit damping.
+
+                      method  max err (dt)  max err (dt/2)   ratio
+               RK4 (toolkit)      1.07e-08        6.71e-10    16.0
+ VV, implicit damping (ours)      5.65e-05        1.41e-05     4.0
+   VV, lagged damping (ours)      1.06e-03        5.16e-04     2.1
+
+Convergence (max error over 0-30 s) and fitted order p (error ~ dt^p):
+                 RK4 (toolkit): p = 4.00   errors = 2.8e-06, 1.7e-07, 1.1e-08, 6.7e-10, 4.2e-11
+   VV, implicit damping (ours): p = 2.00   errors = 9.0e-04, 2.3e-04, 5.6e-05, 1.4e-05, 3.5e-06
+     VV, lagged damping (ours): p = 1.07   errors = 4.9e-03, 2.2e-03, 1.1e-03, 5.2e-04, 2.5e-04
+
+Period scale for reference: T0 = 2.007 s, decay time 2/gamma = 6.67 s
+Reading:
+- Lagged-damping VV is first order (error halves with dt): this is the A1-predicted
+  'velocity lag' error, and it dominates.
+- Implicit-damping VV recovers second order (~4x per halving).
+- RK4 handles a(t, x, v) natively and is fourth order (~16x per halving).

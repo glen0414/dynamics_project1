@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.venv/
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.xdv
+# duplicate of numerical_tools_student_release/
+numerical_tools_student_release.zip

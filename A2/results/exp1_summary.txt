@@ -1,0 +1,13 @@
+Experiment 1 - amplitude vs period (no damping, RK4)
+====================================================
+small-angle period T0 = 2 pi sqrt(L/g) = 2.007090 s
+
+ theta0     model    T(dt) [s]  T(dt/2) [s]   |change|  T exact [s]     T/T0
+     5°    linear     2.007090     2.007090    6.1e-09     2.007090   1.0000
+     5° nonlinear     2.008046     2.008046    2.8e-08     2.008046   1.0005
+    60°    linear     2.007090     2.007090    6.1e-09     2.007090   1.0000
+    60° nonlinear     2.153973     2.153973    2.5e-08     2.153973   1.0732
+
+Reading: the nonlinear/linear period difference is set by theta0 (physics);
+halving dt changes the measured period by orders of magnitude less than that
+difference, and RK4 matches the exact AGM/elliptic-integral period.

@@ -1,0 +1,25 @@
+Experiment 2 - energy error without damping (VV vs RK4)
+=======================================================
+theta0 = 120 deg, no damping, t_end = 2000 s, exact period = 2.755495 s
+
+          method      dt  max|dE/E0|  dE/E0 at end  drift rate [1/s]  period error [s]
+             RK4  0.0100    1.34e-06     -1.34e-06         -6.70e-10         -1.14e-06
+ velocity Verlet  0.0100    1.84e-04     -3.49e-05         -2.90e-11         -4.89e-05
+             RK4  0.0050    4.22e-08     -4.22e-08         -2.09e-11         -3.54e-08
+ velocity Verlet  0.0050    4.59e-05     -1.32e-05         -7.21e-12         -1.22e-05
+
+Ratios when dt is halved (A1 section 4 check):
+   velocity Verlet: max|dE| ratio =    4.0, period-error ratio =    4.0
+               RK4: max|dE| ratio =   31.9, period-error ratio =   32.3
+
+Crossover estimate at dt = 0.01: RK4 drift reaches the VV error band after about
+  t* = 1.84e-04 / 6.70e-10 = 2.74e+05 s (~1.0e+05 periods)
+
+Coarse run dt = 0.1: dE/E0 at t = 2000 s: RK4 -1.23e-01, VV 1.12e-03 (VV max |dE/E0| 1.85e-02)
+
+Reading:
+- VV: energy error oscillates in a bounded band (no secular drift); band shrinks ~4x per dt halving.
+- RK4: energy decreases monotonically (numerical dissipation), linear in t.
+  Its drift rate shrinks ~32x per dt halving (h^5, faster than the h^4 assumed in A1).
+- At dt = 0.01 the RK4 drift stays far below the VV band for any practical run time;
+  the inward phase-space spiral predicted in A1 is only visible with a coarse step.
