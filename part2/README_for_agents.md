@@ -1,12 +1,12 @@
 # README for AI agents
 
-You are helping Group 22 with assignment A2 of a Classical Mechanics course.
-Read this file fully before changing anything in `A2/`.
+You are helping Group 22 with Part 2 of a Classical Mechanics course.
+Read this file fully before changing anything in `part2/`.
 
 ## Context
 
-- Assignment spec: `../Project01student.md` (A1 spec, describes A2 goals).
-- Group's A1 design report: `../力學_project1_G22.md`. It defines Experiments 1–4
+- Assignment spec: `../Project01student.md` (Part 1 spec, describes Part 2 goals).
+- Group's Part 1 design report: `../力學_project1_G22.md`. It defines Experiments 1–4
   and the Δt-halving check. **The experiment design is the group's decision; do not
   redesign it.** You may add diagnostics that support it.
 - Course toolkit: `../numerical_tools_student_release/student_release/`.
@@ -31,11 +31,11 @@ Read this file fully before changing anything in `A2/`.
    - use the non-interactive `Agg` backend and save PNGs to `figures/`;
    - write a plain-text summary to `results/expN_summary.txt` (numbers the group
      will quote in the report);
-   - run at Δt and Δt/2 and report the ratio of numerical errors (A1 section 4).
+   - run at Δt and Δt/2 and report the ratio of numerical errors (Part 1 section 4).
 5. Figure text in English (Chinese fonts may be missing). Series colors: use
    `common.COLORS` in fixed order (blue, orange, aqua); exact/analytic references
    are dashed neutral gray. Linewidth ≈ 1.5–2. One y-axis per panel; never dual axes.
-6. Report results honestly. If a result contradicts a prediction in the A1 report,
+6. Report results honestly. If a result contradicts a prediction in the Part 1 report,
    say so in the summary text — do not tune parameters to force the prediction.
 7. No new dependencies beyond numpy and matplotlib (no scipy). The complete
    elliptic integral for the exact nonlinear period is computed with the AGM in
@@ -62,6 +62,6 @@ Read this file fully before changing anything in `A2/`.
 
 ## Verifying a change
 
-Run `python run_all.py` from `A2/`. It must finish without errors and regenerate
+Run `python run_all.py` from `part2/`. It must finish without errors and regenerate
 every file in `figures/` and `results/`. Check convergence ratios in the summaries:
 ≈4 for second-order methods, ≈16 for RK4 (when not at round-off level).

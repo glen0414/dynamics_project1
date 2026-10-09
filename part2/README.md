@@ -1,6 +1,6 @@
-# 力學 Project A2 — 單擺數值實驗（Group 22）
+# 力學 Project Part 2 — 單擺數值實驗（Group 22）
 
-本資料夾是 A2（數值計算實驗）的共用工作區。A1 報告（`../力學_project1_G22.md`）設計了四個實驗，這裡把它們實際跑出來。
+本資料夾是 Part 2（數值計算實驗）的共用工作區。Part 1 報告（`../力學_project1_G22.md`）設計了四個實驗，這裡把它們實際跑出來。
 
 - 數值方法：**velocity Verlet（VV）** 與 **RK4**
 - 力學問題：**單擺**（小角度近似 vs 完整非線性；無阻尼 vs 一次方阻尼）
@@ -10,7 +10,7 @@
 
 ```bash
 # 需要 numpy、matplotlib（見 toolkit 的 requirements.txt）
-cd A2
+cd part2
 python run_all.py          # 跑全部實驗，圖存到 figures/，數值摘要存到 results/
 python exp2_energy.py      # 也可以單獨跑某一個實驗
 ```
@@ -52,7 +52,7 @@ toolkit 的 `velocity_verlet(acceleration, t, x0, v0)` 要求 `acceleration(t, x
 
 報告中可以把這點寫成結論：**「symplectic 的 VV 是為保守力設計的；遇到速度相依的力，必須修改演算法，且修改方式會影響精度。」**
 
-## 5. 如何區分物理與數值誤差（A1 第 4 節）
+## 5. 如何區分物理與數值誤差（Part 1 第 4 節）
 
 每個實驗都用 Δt 與 Δt/2 各跑一次：
 
@@ -61,9 +61,9 @@ toolkit 的 `velocity_verlet(acceleration, t, x0, v0)` 要求 `acceleration(t, x
 
 `results/*.txt` 會直接印出這些比值。
 
-## 6. 目前結果 vs A1 預測（Δt = 0.01 s；細節見 `results/`）
+## 6. 目前結果 vs Part 1 預測（Δt = 0.01 s；細節見 `results/`）
 
-| 實驗 | A1 預測 | 實際結果 | 是否符合 |
+| 實驗 | Part 1 預測 | 實際結果 | 是否符合 |
 |---|---|---|---|
 | 1 | 60° 非線性週期明顯變長 | T/T₀ = 1.073（5° 只有 1.0005），Δt 減半只變 ~1e-8 s，與精確橢圓積分週期一致 | ✅ |
 | 2 | RK4 能量流失、相空間內縮；VV 能量守恆 | VV 誤差有界震盪（~2e-4）；RK4 單調流失但**小得多**（2000 s 後 1.3e-6）。內縮只有在粗 Δt = 0.1 才看得到 | ⚠️ 定性對，定量上 RK4 反而更好 |

@@ -54,7 +54,7 @@ def main():
         s(f"{name:>16} {dt:>7.4f} {d['max_abs']:>11.2e} {d['end']:>13.2e} "
           f"{d['slope']:>17.2e} {d['period_err']:>17.2e}")
     s()
-    s("Ratios when dt is halved (A1 section 4 check):")
+    s("Ratios when dt is halved (Part 1 section 4 check):")
     for name in ("velocity Verlet", "RK4"):
         a, b = stats[(name, DT)], stats[(name, DT / 2)]
         s(f"  {name:>16}: max|dE| ratio = {a['max_abs'] / b['max_abs']:6.1f}, "
@@ -115,9 +115,9 @@ def main():
     s("Reading:")
     s("- VV: energy error oscillates in a bounded band (no secular drift); band shrinks ~4x per dt halving.")
     s("- RK4: energy decreases monotonically (numerical dissipation), linear in t.")
-    s("  Its drift rate shrinks ~32x per dt halving (h^5, faster than the h^4 assumed in A1).")
+    s("  Its drift rate shrinks ~32x per dt halving (h^5, faster than the h^4 assumed in Part 1).")
     s("- At dt = 0.01 the RK4 drift stays far below the VV band for any practical run time;")
-    s("  the inward phase-space spiral predicted in A1 is only visible with a coarse step.")
+    s("  the inward phase-space spiral predicted in Part 1 is only visible with a coarse step.")
     s.save()
 
 

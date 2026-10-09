@@ -106,7 +106,7 @@ def main():
     s()
     s(f"Period scale for reference: T0 = {T0:.3f} s, decay time 2/gamma = {2 / GAMMA:.2f} s")
     s("Reading:")
-    s("- Lagged-damping VV is first order (error halves with dt): this is the A1-predicted")
+    s("- Lagged-damping VV is first order (error halves with dt): this is the Part 1-predicted")
     s("  'velocity lag' error, and it dominates.")
     s("- Implicit-damping VV recovers second order (~4x per halving).")
     s("- RK4 handles a(t, x, v) natively and is fourth order (~16x per halving).")
